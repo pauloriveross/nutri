@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Nombre y apellido] · Nutricionista · Nutrición Clínica Pediátrica y Adultos</title>
+<meta name="description" content="Acompañamiento nutricional cercano y basado en evidencia para adultos y niños: intolerancias, selectividad alimentaria, necesidades especiales de salud. Agenda en línea o por WhatsApp.">
+
+<!-- Fuentes del DESIGN.md: Halcom (cuerpo), Carefree (display), Base-Mono-Wide (meta).
+     Respaldos de Google Fonts: DM Sans, Caveat Brush y DM Mono. Si tienes las licencias,
+     agrega @font-face y se usarán primero. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --primary:#6B4A9E;
+    --primary-hover:#5B3D89;
+    --accent:#D9C9F0;
+    --surface:#F8F4FC;
+    --ink:#1B1620;
+    --tint:rgba(217,201,240,.38);
+
+    --font-display:'Carefree','Fraunces',Georgia,'Times New Roman',serif;
+    --font-body:'Halcom','DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:'Base-Mono-Wide','DM Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+    --r-micro:2px;
+    --r-pill:300px;
+    --container:1120px;
+    --measure:700px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-body);font-size:17.6px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img,svg{max-width:100%;display:block}
+  h1,h2,h3{margin:0;font-weight:400}
+  p{margin:0}
+  ul,ol{margin:0;padding:0;list-style:none}
+  a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+  a:hover{color:var(--primary)}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:var(--r-micro)}
+  .btn:focus-visible,.pill-toggle:focus-visible,.marquee-ctl:focus-visible{border-radius:var(--r-pill)}
+
+  .skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--surface);padding:12px 20px;border-radius:var(--r-pill);z-index:100}
+  .skip:focus{left:16px}
+  .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 20px}
+  section{padding:72px 0}
+
+  /* ---------- Tipografía ---------- */
+  .display{font-family:var(--font-display);font-weight:500;line-height:1.02;letter-spacing:-.015em}
+  .h-section{font-size:clamp(40px,9vw,65px)}
+  .eyebrow{font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+  .meta{font-family:var(--font-mono);font-size:14px}
+  .lead{max-width:var(--measure);font-size:19px}
+  .accent-text{color:var(--primary)}
+
+  /* ---------- Botones ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 32px;border-radius:var(--r-pill);font:600 15px var(--font-body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1.5px solid var(--ink);transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+  .btn-primary{background:var(--primary);border-color:var(--primary);color:var(--surface)}
+  .btn-primary:hover{background:var(--primary-hover);border-color:var(--primary-hover);color:var(--surface)}
+  .btn-secondary{background:transparent;color:var(--ink)}
+  .btn-secondary:hover{background:var(--accent);color:var(--ink)}
+  .on-accent .btn-secondary:hover{background:var(--surface)}
+  .btn-sm{min-height:44px;padding:10px 24px;font-size:13px}
+  .btn svg{width:18px;height:18px;flex:none}
+  .btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+  /* ---------- Stickers (ilustraciones) ---------- */
+  .st{width:96px;height:96px;overflow:visible}
+  .ln{stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+  .nf{fill:none}
+  .fa{fill:var(--accent)} .fp{fill:var(--primary)} .fs{fill:var(--surface)}
+
+  /* ---------- Navegación ---------- */
+  .site-header{padding:12px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--font-display);font-size:28px;text-decoration:none;color:var(--ink);line-height:1}
+  .nav-links,.nav-cta{display:none}
+  .nav-links a{text-decoration:none;font-size:16px;padding:12px 4px}
+  .nav-links a:hover{text-decoration:underline;text-underline-offset:6px;color:var(--ink)}
+  .pill-toggle{min-height:44px;padding:8px 20px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:var(--r-pill);font:600 13px var(--font-body);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+  .mobile-menu{display:none;padding:8px 0 20px}
+  .mobile-menu.open{display:block}
+  .mobile-menu a{display:flex;align-items:center;min-height:44px;font-size:18px;text-decoration:none}
+  .mobile-menu .btn{margin-top:12px;width:100%}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:32px 0 80px}
+  .hero-grid{display:grid;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(46px,10.5vw,80px);max-width:13ch}
+  .hero .lead{margin-top:24px}
+  .collage{position:relative;max-width:460px;width:100%;margin:0 auto;padding:0 12px 0 0}
+  .collage .st{position:absolute;z-index:2}
+  .collage .s1{width:104px;height:104px;top:-34px;left:-14px;transform:rotate(-12deg)}
+  .collage .s2{width:116px;height:116px;bottom:-38px;right:-6px;transform:rotate(9deg)}
+  .collage .s3{width:70px;height:70px;top:34%;right:-14px;transform:rotate(14deg)}
+
+  /* ---------- Foto (reemplazar por <img src="..." alt="...">) ---------- */
+  .photo{position:relative;width:100%;background:var(--accent);border-radius:var(--r-micro);overflow:hidden;display:grid;place-items:center;text-align:center;padding:24px}
+  .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .photo .ph{display:grid;gap:10px;justify-items:center}
+  .photo .ph svg{width:56px;height:56px;stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .ratio-45{aspect-ratio:4/5}
+  .ratio-43{aspect-ratio:4/3}
+
+  /* ---------- Marquesina ---------- */
+  .marquee-section{padding:0}
+  .marquee-wrap{background:var(--accent);border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);display:flex;align-items:center;overflow:hidden}
+  .marquee-wrap.light{background:var(--surface)}
+  .marquee{overflow:hidden;flex:1;padding:14px 0}
+  .marquee-track{display:flex;width:max-content;animation:scroll 40s linear infinite}
+  .marquee-wrap.rev .marquee-track{animation-direction:reverse}
+  .marquee-group{display:flex;align-items:center;flex:none;white-space:nowrap}
+  .marquee-group span{font-family:var(--font-display);font-weight:500;font-size:clamp(26px,4.5vw,38px);line-height:1.2;padding:0 14px;letter-spacing:-.01em}
+  .marquee-group svg{width:26px;height:26px;flex:none}
+  .marquee-wrap.paused .marquee-track{animation-play-state:paused}
+  .marquee-ctl{flex:none;margin:0 14px;min-height:44px;padding:8px 16px;border-radius:var(--r-pill);border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer;font:600 12px var(--font-body);letter-spacing:.08em;text-transform:uppercase}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- "¿Te suena familiar?" ---------- */
+  .familiar-grid{display:grid;gap:48px}
+  .familiar-copy p{max-width:var(--measure)}
+  .familiar-copy p+p{margin-top:16px}
+  .familiar-copy .hook{font-weight:600;font-size:21px;margin-top:28px}
+  .familiar-copy .sig{font-family:var(--font-display);font-size:clamp(34px,7vw,48px);line-height:1.05;margin-top:20px;color:var(--primary)}
+  .focus-title{font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .focus-list{border-top:1.5px solid var(--ink)}
+  .focus-list li{display:grid;grid-template-columns:56px 1fr;align-items:center;gap:8px;padding:16px 0;border-bottom:1px solid var(--ink)}
+  .focus-list .n{font-family:var(--font-display);font-size:44px;line-height:1;color:var(--primary)}
+  .focus-list .t{font-size:18px;font-weight:500;line-height:1.35}
+
+  /* ---------- Áreas (bento) ---------- */
+  .areas-head{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+  .bento{display:grid;gap:16px}
+  .card{position:relative;border-radius:var(--r-micro);padding:32px 24px;display:flex;flex-direction:column;gap:12px;background:var(--tint)}
+  .card.solid{background:var(--accent)}
+  .card.line{background:transparent;border:1.5px solid var(--ink)}
+  .card .st{width:84px;height:84px;margin-bottom:4px}
+  .card h3{font-family:var(--font-display);font-weight:500;font-size:clamp(26px,5vw,32px);line-height:1.1;letter-spacing:-.01em}
+  .card p{font-size:16.5px;max-width:46ch}
+  .card .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .card .tags li{font-size:13.5px;border:1px solid var(--ink);border-radius:var(--r-pill);padding:2px 14px;background:var(--surface)}
+  .card .more{margin-top:auto;padding-top:10px;min-height:44px;display:inline-flex;align-items:center;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  .card .more::after{content:"→";margin-left:8px;transition:transform .2s ease}
+  .card .more:hover::after{transform:translateX(3px)}
+
+  /* ---------- Sobre mí ---------- */
+  .about-grid{display:grid;gap:56px;align-items:center}
+  .about-photo{position:relative;max-width:440px;width:100%}
+  .about-photo .st{position:absolute;z-index:2}
+  .about-photo .s1{width:112px;height:112px;bottom:-30px;right:-10px;transform:rotate(10deg)}
+  .about-text .display{margin-bottom:24px}
+  .about-text p+p{margin-top:16px}
+  .pull{font-family:var(--font-display);font-size:clamp(32px,6.5vw,44px);line-height:1.08;color:var(--primary);margin-top:28px;max-width:16ch}
+
+  /* ---------- Formación ---------- */
+  .cred-grid{display:grid;gap:32px}
+  .cred-head .st{margin-top:24px;transform:rotate(-8deg)}
+  .creds{border-top:1.5px solid var(--ink)}
+  .creds li{display:flex;flex-direction:column;gap:2px;padding:16px 0;border-bottom:1px solid var(--ink)}
+  .creds .t{font-size:18px;font-weight:500}
+
+  /* ---------- Pasos ---------- */
+  .steps{display:grid;gap:32px;margin-top:48px}
+  .step{border-top:1.5px solid var(--ink);padding-top:20px}
+  .step .n{font-family:var(--font-display);font-size:clamp(88px,18vw,130px);line-height:.85;color:var(--primary);display:block;margin-bottom:12px}
+  .step h3{font-size:22px;font-weight:600;margin-bottom:8px}
+  .step p{max-width:34ch}
+
+  /* ---------- FAQ ---------- */
+  .faq-grid{display:grid;gap:32px}
+  .faq{border-top:1.5px solid var(--ink)}
+  .faq details{border-bottom:1px solid var(--ink)}
+  .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:14px 0;font-size:18px;font-weight:500}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--font-mono);font-size:26px;line-height:1;flex:none}
+  .faq details[open] summary::after{content:"–"}
+  .faq summary:focus-visible{outline-offset:-3px}
+  .faq .ans{padding:0 0 20px;max-width:620px}
+
+  /* ---------- CTA final ---------- */
+  .final{background:var(--accent);position:relative;overflow:hidden;text-align:center;padding:96px 0}
+  .final .h-big{font-size:clamp(52px,13vw,120px);line-height:.92;max-width:11ch;margin:0 auto}
+  .final .lead{margin:24px auto 0}
+  .final .btn-row{justify-content:center}
+  .final .meta{margin-top:28px}
+  .final .st{position:absolute;opacity:1}
+  .final .s1{width:84px;height:84px;top:20px;left:-14px;transform:rotate(-14deg)}
+  .final .s2{width:92px;height:92px;bottom:18px;right:-14px;transform:rotate(12deg)}
+  .final .container{position:relative;z-index:1}
+
+  /* ---------- Footer ---------- */
+  footer{padding:48px 0 120px;border-top:1.5px solid var(--ink)}
+  .foot-grid{display:grid;gap:24px}
+  .foot-name{font-family:var(--font-display);font-size:34px;line-height:1.05}
+  .foot-links{display:flex;flex-wrap:wrap;gap:0 24px}
+  .foot-links a{min-height:44px;display:inline-flex;align-items:center}
+  .disclaimer{font-size:15px;max-width:var(--measure)}
+
+  /* ---------- WhatsApp flotante ---------- */
+  .wa-float{position:fixed;right:16px;bottom:16px;z-index:50;width:52px;height:52px;border-radius:50%;background:var(--primary);color:var(--surface);display:grid;place-items:center;border:1.5px solid var(--primary);transition:background-color .2s ease}
+  .wa-float:hover{background:var(--primary-hover);color:var(--surface)}
+  .wa-float svg{width:26px;height:26px}
+
+  /* ---------- Tablet ---------- */
+  @media (min-width:768px){
+    .container{padding:0 32px}
+    section{padding:96px 0}
+    .bento{grid-template-columns:repeat(2,1fr)}
+    .bento .wide{grid-column:span 2}
+    .steps{grid-template-columns:repeat(3,1fr);gap:32px}
+    .creds li{flex-direction:row;justify-content:space-between;align-items:baseline;gap:24px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .about-grid{grid-template-columns:1fr 1fr}
+    .familiar-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .collage .s1{width:130px;height:130px}
+    .collage .s2{width:140px;height:140px}
+    .final .s1{width:120px;height:120px;left:24px;top:28px}
+    .final .s2{width:130px;height:130px;right:24px;bottom:28px}
+  }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width:1024px){
+    section{padding:120px 0}
+    .hero{padding:48px 0 120px}
+    .hero-grid{grid-template-columns:7fr 5fr;gap:48px}
+    .nav-links{display:flex;gap:28px}
+    .nav-cta{display:inline-flex}
+    .pill-toggle,.mobile-menu{display:none !important}
+    .areas-head{flex-direction:row;justify-content:space-between;align-items:end}
+    .bento{grid-template-columns:repeat(6,1fr)}
+    /* Fila 1: chica + grande · Fila 2: grande + chica · Fila 3: ancho completo */
+    .bento .c1{grid-column:1 / 3;grid-row:1}
+    .bento .c2{grid-column:3 / 7;grid-row:1}
+    .bento .c4{grid-column:1 / 5;grid-row:2}
+    .bento .c3{grid-column:5 / 7;grid-row:2}
+    .bento .c5{grid-row:3}
+    .bento .c5{grid-column:span 6;flex-direction:row;align-items:center;gap:32px;padding:32px 40px}
+    .bento .c5 .txt{flex:1}
+    .bento .c5 .more{margin-top:0;padding-top:0}
+    .card{padding:40px 36px}
+    .about-grid{grid-template-columns:5fr 6fr;gap:96px}
+    .cred-grid{grid-template-columns:5fr 7fr;gap:96px}
+    .faq-grid{grid-template-columns:5fr 7fr;gap:96px}
+    .wa-float{display:none}
+    footer{padding-bottom:64px}
+  }
+
+  /* ---------- Movimiento reducido ---------- */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important}
+    .marquee-track{animation:none !important;width:auto;flex-wrap:wrap;justify-content:center}
+    .marquee-group[aria-hidden="true"]{display:none}
+    .marquee-group{flex-wrap:wrap;white-space:normal;justify-content:center}
+    .marquee-ctl{display:none}
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- Biblioteca de stickers (ilustraciones) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="s-apple" viewBox="0 0 120 120">
+      <path class="fa ln" d="M60 38C44 28 20 40 24 68c3 24 20 38 36 32 16 6 33-8 36-32 4-28-20-40-36-30Z"/>
+      <path class="nf ln" d="M60 38c0-10 2-18 9-24"/>
+      <path class="fp ln" d="M66 24c8-12 24-12 26-4-8 10-22 10-26 4Z"/>
+      <path class="nf" style="stroke:var(--surface);stroke-width:3;stroke-linecap:round" d="M34 58c1-8 6-12 12-14"/>
+    </symbol>
+    <symbol id="s-bowl" viewBox="0 0 120 120">
+      <path class="nf ln" d="M46 34c-6-6 6-10 0-18M62 34c-6-6 6-10 0-18M78 34c-6-6 6-10 0-18"/>
+      <circle class="fa ln" cx="42" cy="54" r="11"/>
+      <circle class="fs ln" cx="62" cy="50" r="11"/>
+      <circle class="fa ln" cx="80" cy="54" r="11"/>
+      <path class="fp ln" d="M12 58h96c0 30-22 48-48 48S12 88 12 58Z"/>
+      <path class="nf" style="stroke:var(--surface);stroke-width:3;stroke-linecap:round" d="M28 72c4 12 12 18 22 21"/>
+    </symbol>
+    <symbol id="s-wheat" viewBox="0 0 120 120">
+      <path class="nf ln" d="M60 114V30"/>
+      <ellipse class="fa ln" cx="60" cy="20" rx="7" ry="13"/>
+      <ellipse class="fa ln" cx="45" cy="44" rx="7" ry="13" transform="rotate(-32 45 44)"/>
+      <ellipse class="fa ln" cx="75" cy="44" rx="7" ry="13" transform="rotate(32 75 44)"/>
+      <ellipse class="fp ln" cx="44" cy="68" rx="7" ry="13" transform="rotate(-32 44 68)"/>
+      <ellipse class="fp ln" cx="76" cy="68" rx="7" ry="13" transform="rotate(32 76 68)"/>
+      <ellipse class="fa ln" cx="45" cy="92" rx="7" ry="13" transform="rotate(-32 45 92)"/>
+      <ellipse class="fa ln" cx="75" cy="92" rx="7" ry="13" transform="rotate(32 75 92)"/>
+    </symbol>
+    <symbol id="s-heart" viewBox="0 0 120 120">
+      <path class="fp ln" d="M60 102C20 74 10 48 25 31c12-12 28-6 35 7 7-13 23-19 35-7 15 17 5 43-35 71Z"/>
+      <path class="nf" style="stroke:var(--surface);stroke-width:3;stroke-linecap:round" d="M30 48c2-7 6-10 13-10"/>
+    </symbol>
+    <symbol id="s-flower" viewBox="0 0 120 120">
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21"/>
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21" transform="rotate(60 60 60)"/>
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21" transform="rotate(120 60 60)"/>
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21" transform="rotate(180 60 60)"/>
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21" transform="rotate(240 60 60)"/>
+      <ellipse class="fa ln" cx="60" cy="30" rx="13" ry="21" transform="rotate(300 60 60)"/>
+      <circle class="fp ln" cx="60" cy="60" r="14"/>
+    </symbol>
+    <symbol id="s-spark" viewBox="0 0 120 120">
+      <path class="fp ln" d="M60 8c4 30 22 48 52 52-30 4-48 22-52 52-4-30-22-48-52-52 30-4 48-22 52-52Z"/>
+    </symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.04 2a9.93 9.93 0 0 0-8.5 15.07L2 22l5.07-1.5A9.96 9.96 0 1 0 12.04 2Zm0 18.1a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3 .88.9-2.93-.2-.3A8.12 8.12 0 1 1 12.04 20.1Zm4.45-6.08c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.77.95-.14.16-.28.18-.52.06a6.6 6.6 0 0 1-1.94-1.2 7.3 7.3 0 0 1-1.34-1.67c-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.32-.75-1.8-.2-.47-.4-.4-.55-.41h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.1 3.64.57.25 1.02.4 1.37.5.58.18 1.1.16 1.51.1.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1. NAVEGACIÓN -->
+<header class="site-header" id="inicio">
+  <div class="container">
+    <nav class="nav" aria-label="Principal">
+      <a class="brand" href="#inicio">[Nombre y apellido]</a>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#areas">Áreas de atención</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#formacion">Formación</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a class="btn btn-primary btn-sm nav-cta" href="https://encuadrado.com/[usuario]" target="_blank" rel="noopener">Agendar hora</a>
+      <button class="pill-toggle" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menú</button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#inicio">Inicio</a>
+      <a href="#areas">Áreas de atención</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#formacion">Formación</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn btn-primary" href="https://encuadrado.com/[usuario]" target="_blank" rel="noopener">Agendar hora</a>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- 2. HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Nutricionista · Nutrición clínica</p>
+        <h1 id="hero-title" class="display">Comer bien también puede ser tranquilo.</h1>
+        <p class="lead">Acompañamiento nutricional cercano y basado en evidencia para adultos y niños, con especial foco en intolerancias, selectividad alimentaria y necesidades especiales de salud.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://encuadrado.com/[usuario]" target="_blank" rel="noopener">Agendar hora</a>
+          <a class="btn btn-secondary" href="https://wa.me/56900000000?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20por%20una%20hora%20de%20atenci%C3%B3n%20nutricional." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="collage">
+        <!-- Reemplazar este bloque por: <img src="foto-hero.jpg" alt="Descripción de la foto"> dentro de .photo -->
+        <div class="photo ratio-45" role="img" aria-label="Espacio reservado para fotografía: mesa familiar con alimentos reales">
+          <div class="ph">
+            <svg viewBox="0 0 56 56" aria-hidden="true"><rect x="6" y="14" width="44" height="32" rx="3"/><circle cx="28" cy="30" r="9"/><path d="M20 14l3-5h10l3 5"/></svg>
+            <span class="meta">[Foto: mesa familiar / alimentos reales]</span>
+          </div>
+        </div>
+        <svg class="st s1" aria-hidden="true"><use href="#s-apple"/></svg>
+        <svg class="st s2" aria-hidden="true"><use href="#s-bowl"/></svg>
+        <svg class="st s3" aria-hidden="true"><use href="#s-spark"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MARQUESINA -->
+  <section class="marquee-section" aria-label="Frases de la consulta">
+    <div class="marquee-wrap" data-marquee>
+      <div class="marquee">
+        <div class="marquee-track">
+          <div class="marquee-group" data-group>
+            <span>NUTRICIÓN CON SENTIDO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+            <span>COMER SIN MIEDO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+            <span>CADA CUERPO, SU RITMO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+            <span>NUTRICIÓN CON SENTIDO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+            <span>COMER SIN MIEDO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+            <span>CADA CUERPO, SU RITMO</span><svg aria-hidden="true"><use href="#s-spark"/></svg>
+          </div>
+        </div>
+      </div>
+      <button class="marquee-ctl" id="marqueeBtn" type="button" aria-pressed="false">Pausar</button>
+    </div>
+  </section>
+
+  <!-- 3b. ¿TE SUENA FAMILIAR? -->
+  <section aria-labelledby="familiar-title">
+    <div class="container familiar-grid">
+      <div class="familiar-copy">
+        <p class="eyebrow">¿Te suena familiar?</p>
+        <h2 id="familiar-title" class="display h-section" style="margin-bottom:28px">¿Comer se volvió una batalla en casa… o en tu cabeza?</h2>
+        <p>Has probado de todo y aun así la mesa se siente tensa, o la comida te genera más culpa que tranquilidad. Quizás te han dicho “es solo una etapa” o “solo es cuestión de fuerza de voluntad”.</p>
+        <p class="hook">Si estás asintiendo, llegaste al lugar correcto.</p>
+        <p style="margin-top:12px">Aquí no hay presión ni juicios. Entendemos primero qué hay detrás de cada plato y avanzamos a tu ritmo, junto a tu familia y, si hace falta, a tu equipo de salud.</p>
+        <p class="sig">Te escucho, y te acompaño.</p>
+      </div>
+      <div>
+        <p class="focus-title">En lo que nos enfocamos</p>
+        <ol class="focus-list">
+          <li><span class="n" aria-hidden="true">1</span><span class="t">Entender qué hay detrás de cada plato</span></li>
+          <li><span class="n" aria-hidden="true">2</span><span class="t">Una relación más amable con la comida</span></li>
+          <li><span class="n" aria-hidden="true">3</span><span class="t">Seguridad y variedad en lo que comes</span></li>
+          <li><span class="n" aria-hidden="true">4</span><span class="t">Trabajo en equipo con tu familia y tu equipo de salud</span></li>
+          <li><span class="n" aria-hidden="true">5</span><span class="t">Un plan realista para tu rutina</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ÁREAS DE ATENCIÓN -->
+  <section id="areas" aria-labelledby="areas-title" style="padding-top:24px">
+    <div class="container">
+      <div class="areas-head">
+        <div>
+          <p class="eyebrow">Áreas de atención</p>
+          <h2 id="areas-title" class="display h-section">¿En qué te acompaño?</h2>
+        </div>
+        <p class="lead" style="max-width:420px">Cada persona tiene su propia historia con la comida. Estas son las áreas en las que trabajo.</p>
+      </div>
+
+      <div class="bento">
+        <article class="card c1">
+          <svg class="st" aria-hidden="true" style="transform:rotate(-6deg)"><use href="#s-wheat"/></svg>
+          <h3>Intolerancias alimentarias</h3>
+          <p>Identificamos y manejamos tus intolerancias y alergias alimentarias para que comas con seguridad, variedad y sin restricciones innecesarias.</p>
+          <a class="more" href="#contacto">Saber más</a>
+        </article>
+
+        <article class="card solid c2">
+          <svg class="st" aria-hidden="true" style="transform:rotate(7deg)"><use href="#s-bowl"/></svg>
+          <h3>Selectividad alimentaria y trastornos de conducta alimentaria</h3>
+          <p>Acompañamiento respetuoso y sin presión para niños, adolescentes y adultos que tienen una relación difícil con la comida.</p>
+          <a class="more" href="#contacto">Saber más</a>
+        </article>
+
+        <article class="card c3">
+          <svg class="st" aria-hidden="true" style="transform:rotate(-8deg)"><use href="#s-apple"/></svg>
+          <h3>Atención a adultos</h3>
+          <p>Planes personalizados que se adaptan a tu salud, tu rutina y tus objetivos reales.</p>
+          <a class="more" href="#contacto">Saber más</a>
+        </article>
+
+        <article class="card solid c4">
+          <svg class="st" aria-hidden="true" style="transform:rotate(8deg)"><use href="#s-heart"/></svg>
+          <h3>Niños con necesidades especiales de salud</h3>
+          <p>Nutrición especializada para niños y niñas, trabajando junto a la familia y el equipo tratante.</p>
+          <ul class="tags" aria-label="Condiciones que acompaño">
+            <li>Síndrome de Down</li>
+            <li>Parálisis cerebral</li>
+            <li>Dieta cetogénica en epilepsia refractaria</li>
+          </ul>
+          <a class="more" href="#contacto">Saber más</a>
+        </article>
+
+        <article class="card line wide c5">
+          <svg class="st" aria-hidden="true" style="transform:rotate(-5deg);flex:none"><use href="#s-flower"/></svg>
+          <div class="txt">
+            <h3>Malnutrición por déficit y por exceso</h3>
+            <p style="margin-top:8px">Abordaje clínico de la desnutrición, el bajo peso, el sobrepeso y la obesidad, con foco en la salud y no en la culpa.</p>
+          </div>
+          <a class="more" href="#contacto">Saber más</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SOBRE MÍ -->
+  <section id="sobre-mi" aria-labelledby="about-title">
+    <div class="container about-grid">
+      <div class="about-photo">
+        <!-- Reemplazar por <img src="foto-profesional.jpg" alt="[Nombre], nutricionista"> dentro de .photo -->
+        <div class="photo ratio-45" role="img" aria-label="Espacio reservado para el retrato de la nutricionista">
+          <div class="ph">
+            <svg viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="20" r="9"/><path d="M8 50c0-11 9-18 20-18s20 7 20 18"/></svg>
+            <span class="meta">[Retrato natural y cercano]</span>
+          </div>
+        </div>
+        <svg class="st s1" aria-hidden="true"><use href="#s-flower"/></svg>
+      </div>
+      <div class="about-text">
+        <p class="eyebrow">Sobre mí</p>
+        <h2 id="about-title" class="display h-section">Hola, soy [Nombre]</h2>
+        <p>Soy nutricionista y acompaño a familias y adultos con empatía, evidencia y ética clínica. Creo que comer no debería ser una fuente de miedo ni de culpa, sino una parte tranquila del cuidado de la salud.</p>
+        <p>Mi formación en bioética sustenta un trato respetuoso y centrado en la persona: escucho tu historia, respeto tus tiempos y tomamos las decisiones juntos, sin juicios sobre el peso, el cuerpo o la alimentación.</p>
+        <p class="pull">Acompañar sin juzgar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FORMACIÓN -->
+  <section id="formacion" aria-labelledby="form-title" style="padding-top:24px">
+    <div class="container cred-grid">
+      <div class="cred-head">
+        <p class="eyebrow">Formación y credenciales</p>
+        <h2 id="form-title" class="display h-section">Detrás de cada consulta, estudio y evidencia.</h2>
+        <svg class="st" aria-hidden="true" style="width:104px;height:104px"><use href="#s-wheat"/></svg>
+      </div>
+      <ul class="creds">
+        <li><span class="t">Nutricionista</span><span class="meta">Universidad de Concepción</span></li>
+        <li><span class="t">Magíster en Nutrición Clínica Pediátrica</span><span class="meta">[Institución · año]</span></li>
+        <li><span class="t">Magíster en Bioética</span><span class="meta">[Institución · año]</span></li>
+        <li><span class="t">Diplomado en Obesidad Infantil</span><span class="meta">[Institución · año]</span></li>
+        <li><span class="t">Diplomado en Enfermedad Celíaca y Alergias Alimentarias</span><span class="meta">[Institución · año]</span></li>
+        <li><span class="t">Diplomado en Trastornos de Conducta Alimentaria</span><span class="meta">[Institución · año]</span></li>
+        <li><span class="t">Diplomado en Docencia Clínica</span><span class="meta">[Institución · año]</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- marquesina secundaria -->
+  <section class="marquee-section" aria-hidden="true">
+    <div class="marquee-wrap light rev" data-marquee>
+      <div class="marquee">
+        <div class="marquee-track">
+          <div class="marquee-group" data-group>
+            <span>COMER SIN MIEDO</span><svg><use href="#s-spark"/></svg>
+            <span>CADA CUERPO, SU RITMO</span><svg><use href="#s-spark"/></svg>
+            <span>NUTRICIÓN CON SENTIDO</span><svg><use href="#s-spark"/></svg>
+            <span>COMER SIN MIEDO</span><svg><use href="#s-spark"/></svg>
+            <span>CADA CUERPO, SU RITMO</span><svg><use href="#s-spark"/></svg>
+            <span>NUTRICIÓN CON SENTIDO</span><svg><use href="#s-spark"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CÓMO TRABAJAMOS -->
+  <section aria-labelledby="how-title">
+    <div class="container">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2 id="how-title" class="display h-section">Así empezamos.</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="n" aria-hidden="true">1</span>
+          <h3>Agenda tu hora</h3>
+          <p>Reserva en línea por Encuadrado o escríbeme por WhatsApp.</p>
+        </li>
+        <li class="step">
+          <span class="n" aria-hidden="true">2</span>
+          <h3>Primera consulta</h3>
+          <p>Conversamos con calma sobre tu historia, tu salud y tus necesidades.</p>
+        </li>
+        <li class="step">
+          <span class="n" aria-hidden="true">3</span>
+          <h3>Plan y seguimiento</h3>
+          <p>Definimos juntos un plan realista, con controles y ajustes a tu ritmo.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 8. PREGUNTAS FRECUENTES -->
+  <section id="faq" aria-labelledby="faq-title" style="padding-top:24px">
+    <div class="container faq-grid">
+      <div>
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 id="faq-title" class="display h-section">Lo que suelen preguntarme.</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Atiendes niños y adultos?</summary>
+          <p class="ans">Sí. Atiendo a niños, niñas, adolescentes y adultos. En el caso de niños con necesidades especiales de salud, trabajo junto a la familia y al equipo tratante.</p>
+        </details>
+        <details>
+          <summary>¿Cómo agendo mi hora?</summary>
+          <p class="ans">Puedes reservar en línea a través de Encuadrado o escribirme por WhatsApp y coordinamos el horario que mejor te acomode.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto dura la primera consulta?</summary>
+          <p class="ans">La primera consulta dura [duración] y es un espacio para conversar con calma sobre tu historia, tu salud y tus necesidades.</p>
+        </details>
+        <details>
+          <summary>¿Trabajas con otros profesionales de salud?</summary>
+          <p class="ans">Sí. Cuando es necesario, me coordino con el equipo de salud que te atiende para que el acompañamiento sea integral y coherente.</p>
+        </details>
+        <details>
+          <summary>¿Atiendes por telemedicina?</summary>
+          <p class="ans">[Indicar si la atención es presencial, por telemedicina o ambas modalidades, y la ciudad de la consulta.]</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA FINAL -->
+  <section class="final on-accent" id="contacto" aria-labelledby="cta-title">
+    <svg class="st s1" aria-hidden="true"><use href="#s-apple"/></svg>
+    <svg class="st s2" aria-hidden="true"><use href="#s-heart"/></svg>
+    <div class="container">
+      <h2 id="cta-title" class="display h-big">Demos el primer paso, juntos.</h2>
+      <p class="lead">Agenda tu hora en línea o escríbeme por WhatsApp para resolver tus dudas.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://encuadrado.com/[usuario]" target="_blank" rel="noopener">Agendar en Encuadrado</a>
+        <a class="btn btn-secondary" href="https://wa.me/56900000000?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20por%20una%20hora%20de%20atenci%C3%B3n%20nutricional." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Escribir por WhatsApp</a>
+      </div>
+      <p class="meta">Consulta privada · [ciudad / modalidad]</p>
+    </div>
+  </section>
+</main>
+
+<!-- 10. FOOTER -->
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <p class="foot-name">[Nombre y apellido]</p>
+      <p>Nutricionista · [ciudad]</p>
+    </div>
+    <nav class="foot-links" aria-label="Contacto">
+      <a href="https://encuadrado.com/[usuario]" target="_blank" rel="noopener">Encuadrado</a>
+      <a href="https://wa.me/56900000000?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20por%20una%20hora%20de%20atenci%C3%B3n%20nutricional." target="_blank" rel="noopener">WhatsApp [+56 9 XXXX XXXX]</a>
+      <a href="[enlace a redes sociales]">[Redes sociales]</a>
+    </nav>
+    <p class="disclaimer" style="grid-column:1/-1">La información de este sitio es educativa y no reemplaza la consulta profesional.</p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/56900000000?text=Hola%2C%20me%20gustar%C3%ADa%20consultar%20por%20una%20hora%20de%20atenci%C3%B3n%20nutricional." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+<script>
+  // Menú móvil
+  (function(){
+    var btn=document.getElementById('menuBtn'),menu=document.getElementById('mobileMenu');
+    function close(){menu.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.textContent='Menú';}
+    btn.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+      btn.textContent=open?'Cerrar':'Menú';
+    });
+    menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
+  })();
+
+  // Marquesinas: duplicar contenido para el bucle y permitir pausa
+  (function(){
+    var wraps=document.querySelectorAll('[data-marquee]');
+    wraps.forEach(function(w){
+      var g=w.querySelector('[data-group]');
+      var clone=g.cloneNode(true);
+      clone.removeAttribute('data-group');
+      clone.setAttribute('aria-hidden','true');
+      g.parentNode.appendChild(clone);
+    });
+    var btn=document.getElementById('marqueeBtn');
+    btn.addEventListener('click',function(){
+      var p=!wraps[0].classList.contains('paused');
+      wraps.forEach(function(w){w.classList.toggle('paused',p);});
+      btn.setAttribute('aria-pressed',p);
+      btn.textContent=p?'Reanudar':'Pausar';
+    });
+  })();
+</script>
+</body>
+</html>
