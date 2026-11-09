@@ -48,6 +48,9 @@
   .skip:focus{left:16px}
   .container{width:100%;max-width:var(--container);margin:0 auto;padding:0 20px}
   section{padding:72px 0}
+  main{display:flex;flex-direction:column}
+  /* Móvil y tablet: la cinta va arriba, antes del hero */
+  @media (max-width:1023px){.marquee-top{order:-1}}
 
   /* ---------- Tipografía ---------- */
   .display{font-family:var(--font-display);font-weight:500;line-height:1.02;letter-spacing:-.015em}
@@ -370,7 +373,7 @@
   </section>
 
   <!-- 3. MARQUESINA -->
-  <section class="marquee-section" aria-label="Frases de la consulta">
+  <section class="marquee-section marquee-top" aria-label="Frases de la consulta">
     <div class="marquee-wrap" data-marquee>
       <div class="marquee">
         <div class="marquee-track">
@@ -384,7 +387,6 @@
           </div>
         </div>
       </div>
-      <button class="marquee-ctl" id="marqueeBtn" type="button" aria-pressed="false">Pausar</button>
     </div>
   </section>
 
@@ -643,13 +645,6 @@
       clone.removeAttribute('data-group');
       clone.setAttribute('aria-hidden','true');
       g.parentNode.appendChild(clone);
-    });
-    var btn=document.getElementById('marqueeBtn');
-    btn.addEventListener('click',function(){
-      var p=!wraps[0].classList.contains('paused');
-      wraps.forEach(function(w){w.classList.toggle('paused',p);});
-      btn.setAttribute('aria-pressed',p);
-      btn.textContent=p?'Reanudar':'Pausar';
     });
   })();
 </script>
